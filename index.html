@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EverTrust Bank | Personal Banking Made Simple</title>
+  <style>
+    :root {
+      --primary: #0b3d91;
+      --primary-dark: #082b66;
+      --accent: #00a878;
+      --accent-dark: #008c64;
+      --surface: #ffffff;
+      --surface-soft: #f4f7fb;
+      --text: #182033;
+      --muted: #667085;
+      --border: #d9e2ef;
+      --shadow: 0 18px 45px rgba(15, 35, 80, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--surface-soft);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      background: var(--primary-dark);
+      color: #ffffff;
+      font-size: 0.9rem;
+      padding: 0.65rem 5%;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .topbar a {
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      width: min(1180px, 90%);
+      margin: 0 auto;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      font-weight: 900;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.35rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: var(--primary);
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 999px;
+      padding: 0.82rem 1.25rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .button:hover,
+    .button:focus {
+      transform: translateY(-1px);
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 10px 25px rgba(0, 168, 120, 0.25);
+    }
+
+    .button-primary:hover,
+    .button-primary:focus {
+      background: var(--accent-dark);
+    }
+
+    .button-outline {
+      background: #ffffff;
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    .hero {
+      background:
+        radial-gradient(circle at top left, rgba(0, 168, 120, 0.18), transparent 34%),
+        linear-gradient(135deg, #eef5ff 0%, #ffffff 56%, #eafaf6 100%);
+      padding: 5rem 0;
+    }
+
+    .hero-grid,
+    .section,
+    .footer-grid {
+      width: min(1180px, 90%);
+      margin: 0 auto;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .eyebrow {
+      color: var(--accent-dark);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.9rem;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      margin-bottom: 1.25rem;
+      color: var(--primary-dark);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.15rem;
+      max-width: 620px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .trust-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .card-preview {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 1.35rem;
+      box-shadow: var(--shadow);
+    }
+
+    .bank-card {
+      min-height: 250px;
+      border-radius: 24px;
+      padding: 1.5rem;
+      color: #ffffff;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.2), transparent 38%),
+        linear-gradient(135deg, var(--primary), #071b3d);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-top,
+    .card-bottom,
+    .account-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .chip {
+      width: 48px;
+      height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #f9d976, #f39f33);
+    }
+
+    .balance-label {
+      opacity: 0.75;
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .balance {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .account-list {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .account-row {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1rem;
+    }
+
+    .account-row strong {
+      display: block;
+    }
+
+    .account-row small {
+      color: var(--muted);
+    }
+
+    .section {
+      padding: 4.5rem 0;
+    }
+
+    .section-heading {
+      max-width: 720px;
+      margin-bottom: 2rem;
+    }
+
+    .section-heading h2 {
+      color: var(--primary-dark);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.85rem;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 1.06rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+
+    .feature-card,
+    .login-panel,
+    .rate-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 1.5rem;
+      box-shadow: 0 14px 35px rgba(15, 35, 80, 0.07);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: #eafaf6;
+      color: var(--accent-dark);
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3,
+    .rate-card h3 {
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p,
+    .rate-card p {
+      color: var(--muted);
+    }
+
+    .banking-tools {
+      background: #ffffff;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .login-panel h2 {
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+    }
+
+    .login-panel p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      background: #ffffff;
+    }
+
+    input:focus,
+    select:focus {
+      outline: 3px solid rgba(0, 168, 120, 0.18);
+      border-color: var(--accent);
+    }
+
+    .rates {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .rate {
+      color: var(--accent-dark);
+      font-size: 2.2rem;
+      line-height: 1;
+      font-weight: 900;
+      margin: 0.8rem 0;
+    }
+
+    .security {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #ffffff;
+    }
+
+    .security .section-heading h2,
+    .security .section-heading p {
+      color: #ffffff;
+    }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .security-item {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 20px;
+      padding: 1.35rem;
+    }
+
+    .security-item strong {
+      display: block;
+      margin-bottom: 0.45rem;
+      font-size: 1.08rem;
+    }
+
+    .security-item p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .cta {
+      text-align: center;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 3rem 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 {
+      color: var(--primary-dark);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+
+    .cta p {
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto 1.5rem;
+    }
+
+    footer {
+      background: #071b3d;
+      color: #ffffff;
+      padding: 3rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    footer h3,
+    footer h4 {
+      margin-bottom: 0.8rem;
+    }
+
+    footer p,
+    footer li,
+    .fine-print {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    footer ul {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .fine-print {
+      width: min(1180px, 90%);
+      margin: 2rem auto 0;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        flex-wrap: wrap;
+        padding: 1rem 0;
+      }
+
+      nav {
+        order: 3;
+        width: 100%;
+      }
+
+      nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .hero-grid,
+      .tools-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features,
+      .security-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar,
+      .actions,
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .features,
+      .rates,
+      .security-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 3.5rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span>FDIC-insured banking solutions for everyday money goals.</span>
+    <span>Need help? Call <a href="tel:+18005550199">1-800-555-0199</a></span>
+  </div>
+
+  <header>
+    <div class="nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="EverTrust Bank home">
+        <span class="brand-mark">E</span>
+        <span>EverTrust Bank</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#accounts">Accounts</a></li>
+          <li><a href="#loans">Loans</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#support">Support</a></li>
+        </ul>
+      </nav>
+      <div class="actions">
+        <a class="button button-outline" href="#signin">Sign In</a>
+        <a class="button button-primary" href="#open-account">Open Account</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Modern personal banking</p>
+          <h1 id="hero-title">Bank confidently from anywhere.</h1>
+          <p>Manage checking, savings, cards, and loans with simple digital tools, transparent rates, and support from bankers who know your goals.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#open-account">Start banking today</a>
+            <a class="button button-outline" href="#accounts">Compare accounts</a>
+          </div>
+          <div class="trust-row" aria-label="Customer trust highlights">
+            <span>✓ 24/7 fraud monitoring</span>
+            <span>✓ Mobile check deposit</span>
+            <span>✓ No hidden monthly fees</span>
+          </div>
+        </div>
+
+        <aside class="card-preview" aria-label="Account dashboard preview">
+          <div class="bank-card">
+            <div class="card-top">
+              <strong>EverTrust Plus</strong>
+              <span class="chip" aria-hidden="true"></span>
+            </div>
+            <div>
+              <div class="balance-label">Available balance</div>
+              <div class="balance">$12,840.75</div>
+            </div>
+            <div class="card-bottom">
+              <span>•••• 4829</span>
+              <span>Secure Card</span>
+            </div>
+          </div>
+          <div class="account-list">
+            <div class="account-row">
+              <div>
+                <strong>Smart Savings</strong>
+                <small>Goal: emergency fund</small>
+              </div>
+              <strong>$8,120</strong>
+            </div>
+            <div class="account-row">
+              <div>
+                <strong>Rewards Checking</strong>
+                <small>Next bill: June 15</small>
+              </div>
+              <strong>$4,720</strong>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="accounts">
+      <div class="section-heading">
+        <h2>Accounts designed around real life.</h2>
+        <p>Choose flexible products that help you spend, save, borrow, and plan with confidence.</p>
+      </div>
+      <div class="features">
+        <article class="feature-card">
+          <div class="icon" aria-hidden="true">💳</div>
+          <h3>Rewards Checking</h3>
+          <p>Enjoy debit rewards, early direct deposit, bill pay, and access to 40,000+ fee-free ATMs.</p>
+        </article>
+        <article class="feature-card">
+          <div class="icon" aria-hidden="true">📈</div>
+          <h3>High-Yield Savings</h3>
+          <p>Build your balance faster with automatic savings rules and competitive annual percentage yields.</p>
+        </article>
+        <article class="feature-card">
+          <div class="icon" aria-hidden="true">🏡</div>
+          <h3>Home & Personal Loans</h3>
+          <p>Explore clear loan options with fast prequalification and guidance from local lending experts.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="banking-tools" id="signin">
+      <div class="section tools-grid">
+        <form class="login-panel" aria-label="Online banking sign in form">
+          <h2>Online Banking</h2>
+          <p>Sign in securely to view balances, transfer funds, and manage payments.</p>
+          <label for="username">Username</label>
+          <input id="username" type="text" name="username" autocomplete="username" placeholder="Enter your username" />
+
+          <label for="password">Password</label>
+          <input id="password" type="password" name="password" autocomplete="current-password" placeholder="Enter your password" />
+
+          <button class="button button-primary" type="submit">Secure Sign In</button>
+        </form>
+
+        <div id="loans">
+          <div class="section-heading">
+            <h2>Featured rates and lending tools.</h2>
+            <p>Estimate payments, compare options, and make informed decisions before you apply.</p>
+          </div>
+          <div class="rates">
+            <article class="rate-card">
+              <h3>12-Month CD</h3>
+              <div class="rate">4.25%</div>
+              <p>Fixed APY with predictable growth for short-term savings goals.</p>
+            </article>
+            <article class="rate-card">
+              <h3>Auto Loan</h3>
+              <div class="rate">6.10%</div>
+              <p>Competitive APR options with simple online prequalification.</p>
+            </article>
+            <article class="rate-card">
+              <h3>Mortgage</h3>
+              <div class="rate">6.75%</div>
+              <p>Personalized home financing support from application to closing.</p>
+            </article>
+            <article class="rate-card">
+              <h3>Credit Card</h3>
+              <div class="rate">2x</div>
+              <p>Earn double points on groceries, gas, and recurring bills.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="security" id="security">
+      <div class="section">
+        <div class="section-heading">
+          <h2>Your security is always on.</h2>
+          <p>We combine encryption, real-time monitoring, and simple controls to help protect every account.</p>
+        </div>
+        <div class="security-grid">
+          <div class="security-item">
+            <strong>Biometric login</strong>
+            <p>Use fingerprint or face authentication on supported devices.</p>
+          </div>
+          <div class="security-item">
+            <strong>Instant alerts</strong>
+            <p>Get notified about card activity, transfers, and balance changes.</p>
+          </div>
+          <div class="security-item">
+            <strong>Card controls</strong>
+            <p>Lock, unlock, or replace your debit card from the mobile app.</p>
+          </div>
+          <div class="security-item">
+            <strong>Fraud support</strong>
+            <p>Reach dedicated specialists whenever suspicious activity appears.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="open-account">
+      <div class="cta">
+        <h2>Ready for a simpler banking experience?</h2>
+        <p>Open an EverTrust account in minutes and bring all your day-to-day money management into one secure place.</p>
+        <a class="button button-primary" href="mailto:hello@evertrust.example">Open your account</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="support">
+    <div class="footer-grid">
+      <div>
+        <h3>EverTrust Bank</h3>
+        <p>Customer-first banking for checking, savings, cards, lending, and financial wellness.</p>
+      </div>
+      <div>
+        <h4>Banking</h4>
+        <ul>
+          <li><a href="#accounts">Checking</a></li>
+          <li><a href="#accounts">Savings</a></li>
+          <li><a href="#loans">Loans</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="tel:+18005550199">Contact us</a></li>
+          <li><a href="#security">Security center</a></li>
+          <li><a href="#signin">Online banking</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Disclosures</h4>
+        <ul>
+          <li>Member FDIC</li>
+          <li>Equal Housing Lender</li>
+          <li>Rates are examples only</li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine-print">© 2026 EverTrust Bank. This demo page is for illustrative purposes and does not process real banking transactions.</p>
+  </footer>
+</body>
+</html>
